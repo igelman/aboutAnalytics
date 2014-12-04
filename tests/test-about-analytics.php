@@ -2,7 +2,7 @@
 require_once("../classes/bootstrap.php");
 
 class TestAboutAnalytics extends PHPUnit_Framework_TestCase {
-	private $page = "http://google.com";
+	private $page = "4wheeldrive.about.com/cs/jeepreviews/a/aa121102a.htm";
 	public function setUp() {
 		$this->aa = new AboutAnalytics();
 	}
@@ -28,7 +28,9 @@ class TestAboutAnalytics extends PHPUnit_Framework_TestCase {
 	public function testCurlApi() {
 		$page = $this->page;
 		$this->aa->setPage($page);
-		print_r( $this->aa->curlApi() . PHP_EOL, FALSE);
+		print_r( $this->aa->getResponse(), FALSE );
+//		$this->assertTrue();
+//		print_r( $this->aa->curlApi() . PHP_EOL, FALSE);
 	}
 	
 	

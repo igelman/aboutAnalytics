@@ -15,6 +15,12 @@ class AboutAnalytics {
 		return $this->apiUrl;
 	}
 	
+	public function getResponse() {
+		$this->curlApi();
+		return json_decode($this->html, TRUE);
+//		return $this->html;
+	}
+	
 	function apiUrl() {
 		$service = "http://api.dss.about.com:3000/";
 		$api = "webservers/v1/url_monthly";
@@ -28,8 +34,10 @@ class AboutAnalytics {
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, $this->apiUrl);
 		curl_setopt($ch, CURLOPT_HEADER, 0);
-		curl_exec($ch);
-		return curl_close($ch);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		$this->html = curl_exec($ch);
+		$this->curlInfo = curl_getinfo($ch);
+		curl_close($ch);
 	}
 }
 
