@@ -1,16 +1,16 @@
 [
 {
-_id: {
-url: "jobsearch.about.com/od/jobsearchglossary/g/coverletter.htm"
+"_id": {
+"url": "jobsearch.about.com/od/jobsearchglossary/g/coverletter.htm"
 },
-pvs: 60738,
-pvsUS: 28757
+"pvs": 60738,
+"pvsUS": 28757
 },
 {
-_id: {
-url: "jobsearch.about.com/od/coverlettersamples/a/coverlettsample.htm"
+"_id": {
+"url": "jobsearch.about.com/od/coverlettersamples/a/coverlettsample.htm"
 },
-pvs: 740348,
-pvsUS: 365222
+"pvs": 740348,
+"pvsUS": 365222
 }
 ]
