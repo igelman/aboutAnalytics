@@ -13,21 +13,27 @@ class TransformJsonToCsv {
     return $this->json;
   }
 
+  public function getCsv() {
+    $this->csv = "";
+    $this->sumKeyValues("pvs");
+    foreach($this->sums as $url=>$pvs) {
+      $this->csv .= "$url, $pvs" . PHP_EOL;
+    }
+    return $this->csv;
+  }
+
   public function sumKeyValues($key) {
     $pages = json_decode($this->json);
-    $sums = [];
-    // foreach ($pages as $pageObject) {
-    //   // not sure why I need to do this
-    //   // but if I don't, the next forEach complains
-    //   $sums[$pageObject->_id->url] = 0;
-    // }
+    $this->sums = [];
     foreach ($pages as $pageObject) {
-      if (!array_key_exists ( $pageObject->_id->url , $sums )) {
-        $sums[$pageObject->_id->url] = 0;
+      if (!array_key_exists ( $pageObject->_id->url , $this->sums )) {
+        // not sure why I need to do this
+        // but I guess you can't use += to initialize & assign
+        $this->sums[$pageObject->_id->url] = 0;
       }
-      $sums[$pageObject->_id->url] += $pageObject->pvs;
+      $this->sums[$pageObject->_id->url] += $pageObject->pvs;
     }
-   return $sums;
+   return $this->sums;
   }
 }
 

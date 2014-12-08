@@ -24,20 +24,32 @@ class TestTransformJsonToCsv extends PHPUnit_Framework_TestCase {
 	}
 	
  	public function testSumKeyValues() {
- 		$pages = json_decode($this->response, TRUE);
-// 		echo print_r($pages, TRUE);
- 		foreach($pages as $page) {
- 			$result[$page["_id"]["url"]] = $page["pvs"];
- 			$urls[] = $page["_id"]["url"];
- 		}
-// 		echo "testSumKeyValues " . print_r($result, TRUE) . PHP_EOL;
+		$expected = $this->expectedResults();
 		$key = "pvs";
 		$sums = $this->tjtc->sumKeyValues($key);
-		echo "sumKeyValues returns sums: " . print_r($sums, TRUE) . PHP_EOL;
- 		$this->assertEquals($result[$urls[0]], $sums[$urls[0]]);
- 		$this->assertEquals($result[$urls[1]], $sums[$urls[1]]);
+		echo "sumKeyValues: " . print_r($sums,TRUE) . PHP_EOL;		
+		foreach($expected as $url=>$expectedPvs) {
+			$this->assertEquals($expectedPvs, $sums[$url]);
+		}
+ 	}
+ 	
+ 	public function testGetCsv() {
+ 		$expectedCsv = "";
+ 		$expected = $this->expectedResults();
+ 		foreach($expected as $url=>$expectedPvs) {
+ 			$expectedCsv .= "$url, $expectedPvs" . PHP_EOL;
+ 		}
+ 		echo "expectedCsv: " . PHP_EOL . $expectedCsv . PHP_EOL;
+ 		$this->assertEquals($expectedCsv, $this->tjtc->getCsv());
  	}
 	
+	private function expectedResults() {
+		$pages = json_decode($this->response, TRUE);
+ 		foreach($pages as $page) {
+ 			$expected[$page["_id"]["url"]] = $page["pvs"];
+ 		}
+		return $expected;	
+	}
 	
 }
 
