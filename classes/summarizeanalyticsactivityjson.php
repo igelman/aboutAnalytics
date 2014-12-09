@@ -1,16 +1,16 @@
 <?php
 class SummarizeAnalyticsActivityJson {
 
-  public function __construct($json) {
-    $this->json = $json;
-    $this->summarizeJsonToArray();
-    $this->convertJsonToCsv();
+  public function __construct() {
+    //$this->json = $json;
+    $this->activities = [];
+    //$this->summarizeJsonToArray();
+    //$this->convertJsonToCsv();
 
   }
 
-  private function summarizeJsonToArray() {
-    $activityArray = json_decode($this->json);
-    $this->activities = [];
+  public function summarizeJsonToArray($json) {
+    $activityArray = json_decode($json);
     foreach($activityArray as $activity) {
       $host = $activity->host;
       $author = $activity->updated->by;
@@ -34,7 +34,7 @@ class SummarizeAnalyticsActivityJson {
     }
   }
 
-  private function convertJsonToCsv() {
+  private function convertArrayToCsv() {
     $this->csv = "";
     foreach($this->activities as $host => $authors) {
       foreach($authors as $author => $actions) {
@@ -52,6 +52,7 @@ class SummarizeAnalyticsActivityJson {
   }
 
   public function getCsv() {
+    $this->convertArrayToCsv();
     return $this->csv;
   }
 
