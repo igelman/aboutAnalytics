@@ -1,7 +1,7 @@
 <?php
 require_once("../classes/bootstrap.php");
 
-class TestDownloadAnalyticsJson extends PHPUnit_Framework_TestCase {
+class TestDownloadAnalyticsActivityJson extends PHPUnit_Framework_TestCase {
 
   public function setUp() {
     $this->startDate = "2014-11-01";
@@ -25,7 +25,8 @@ class TestDownloadAnalyticsJson extends PHPUnit_Framework_TestCase {
 
   public function testGetAnalyticsJson() {
     $this->daj->requestAnalyticsJson();
-    print_r($this->daj->getAnalyticsJson());
+    $this->analyticsJson = $this->daj->getAnalyticsJson();
+    print_r($this->analyticsJson);
   }
 }
 
