@@ -11,6 +11,6 @@ $daj->requestAnalyticsJson();
 $analyticsJson = $daj->getAnalyticsJson();
 
 $saj = new SummarizeAnalyticsActivityJson($analyticsJson);
-$csv .= $saj->getCsv();
+$activityArray = $saj->getArray();
 
 ?>

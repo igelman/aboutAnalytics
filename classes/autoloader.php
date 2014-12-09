@@ -5,6 +5,7 @@ require_once("aboutanalytics.php");
 require_once("transformjsontocsv.php");
 require_once("downloadanalyticsactivityjson.php");
 require_once("summarizeanalyticsactivityjson.php");
+require_once("combinearrays.php");
 
 class Autoloader {
 	public static function loader($class) {

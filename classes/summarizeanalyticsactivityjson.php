@@ -3,9 +3,12 @@ class SummarizeAnalyticsActivityJson {
 
   public function __construct($json) {
     $this->json = $json;
+    $this->summarizeJsonToArray();
+    $this->convertJsonToCsv();
+
   }
 
-  private function summarizeJson() {
+  private function summarizeJsonToArray() {
     $activityArray = json_decode($this->json);
     $this->activities = [];
     foreach($activityArray as $activity) {
@@ -44,9 +47,11 @@ class SummarizeAnalyticsActivityJson {
     }
   }
 
+  public function getArray() {
+    return $this->activities;
+  }
+
   public function getCsv() {
-    $this->summarizeJson();
-    $this->convertJsonToCsv();
     return $this->csv;
   }
 

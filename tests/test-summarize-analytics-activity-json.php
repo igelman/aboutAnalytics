@@ -15,6 +15,13 @@ class TestSummarizeAnalyticsActivityJson extends PHPUnit_Framework_TestCase {
 
   public function testGetCsv() {
     $this->assertTrue((boolean) $this->saj->getCsv());
+    //echo print_r($this->saj->getCsv(), TRUE);
+  }
+
+  public function testGetArray() {
+    $array = $this->saj->getArray();
+    $this->assertInternalType("array", $array);
+    print_r($array);
   }
 
 }
