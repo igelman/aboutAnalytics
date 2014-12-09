@@ -8,7 +8,12 @@ class TestDownloadAnalyticsActivityJson extends PHPUnit_Framework_TestCase {
     $this->endDate = "2014-11-02";
     $this->earlyEndDate = "2013-01-01";
     $this->daj = new DownloadAnalyticsActivityJson($this->startDate, $this->endDate);
-    $this->dpj = new DownloadAnalyticsPageviewsJson();
+
+    $this->urlsArray = [
+      "jobsearch.about.com/od/jobsearchglossary/g/coverletter.htm",
+      "jobsearch.about.com/od/coverlettersamples/a/coverlettsample.htm",
+    ];
+    $this->dpj = new DownloadAnalyticsPageviewsJson($this->urlsArray);
   }
 
   public function testConstruct() {
@@ -40,12 +45,16 @@ class TestDownloadAnalyticsActivityJson extends PHPUnit_Framework_TestCase {
     echo "dpj responseSize: " . $this->dpj->getResponseSize() . PHP_EOL;
     $this->dpjAnalyticsJson = $this->dpj->getAnalyticsJson();
     $this->assertNotNull(json_decode($this->dpjAnalyticsJson));
-    //print_r($this->analyticsJson);
+    print_r($this->dpjAnalyticsJson);
   }
 
   public function testDapjConstruct() {
     $expectedClass = "DownloadAnalyticsPageviewsJson";
     $this->assertInstanceOf($expectedClass, $this->dpj);
+  }
+
+  public function testConvertArrayToString() {
+    $expectedString = 
   }
 }
 

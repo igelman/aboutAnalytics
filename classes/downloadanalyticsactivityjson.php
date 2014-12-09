@@ -5,7 +5,7 @@ class DownloadAnalyticsActivityJson {
     $this->startDate = $startDate;
     $this->endDate = $endDate;
     $this->checkDates();
-    $this->url = "http://api.dss.about.com:3000/about_com/v1/documents_activities?query=%7B%22updated.at%22%3A+%7B+%22%24gte%22%3A+%22" . $this->startDate . "%22%2C+%22%24lte%22%3A+%22" . $this->endDate . "%22+%7D+%7D";
+    $this->apiUrl = "http://api.dss.about.com:3000/about_com/v1/documents_activities?query=%7B%22updated.at%22%3A+%7B+%22%24gte%22%3A+%22" . $this->startDate . "%22%2C+%22%24lte%22%3A+%22" . $this->endDate . "%22+%7D+%7D";
   }
 
   public function getStartDate() {
@@ -17,11 +17,11 @@ class DownloadAnalyticsActivityJson {
   }
 
   public function getUrl() {
-    return $this->url;
+    return $this->apiUrl;
   }
 
   public function requestAnalyticsJson() {
-    $this->analyticsJson = file_get_contents($this->url);
+    $this->analyticsJson = file_get_contents($this->apiUrl);
     $this->responseSize = strlen($this->analyticsJson);
   }
 
@@ -46,9 +46,14 @@ class DownloadAnalyticsActivityJson {
 }
 
 class DownloadAnalyticsPageviewsJson extends DownloadAnalyticsActivityJson {
-  public function __construct() {
+  public function __construct($urlsArray) {
     //parent::__construct();
-    $this->url = 'http://api.dss.about.com:3000/webservers/v1/url_daily/aggregate?pipeline=[{%22$match%22:{%22on%22:{%22$regex%22:%22^2014-10%22},%22url%22:{%22$in%22:[%22jobsearch.about.com/od/jobsearchglossary/g/coverletter.htm%22,%22jobsearch.about.com/od/coverlettersamples/a/coverlettsample.htm%22]}}},{%22$group%22:%20{%22_id%22:%20{%22url%22:%20%22$url%22},%20%22pvs%22:%20{%22$sum%22:%20%22$pvs.total%22},%20%22pvsUS%22:%20{%22$sum%22:%20%22$pvs.US%22}}}]';
+    //$this->urls = implode (",", $urlsArray);
+    $this->urls = "";
+    foreach ($urlsArray as $url) {
+      $this->urls .= "\"$url\","; // need to strip that last comma
+    }
+    $this->apiUrl = 'http://api.dss.about.com:3000/webservers/v1/url_daily/aggregate?pipeline=[{%22$match%22:{%22on%22:{%22$regex%22:%22^2014-10%22},%22url%22:{%22$in%22:[' . $this->urls . ']}}},{%22$group%22:%20{%22_id%22:%20{%22url%22:%20%22$url%22},%20%22pvs%22:%20{%22$sum%22:%20%22$pvs.total%22},%20%22pvsUS%22:%20{%22$sum%22:%20%22$pvs.US%22}}}]';
   }
 }
 
