@@ -16,12 +16,21 @@ class DownloadAnalyticsActivityJson {
     return $this->endDate;
   }
 
+  public function getUrl() {
+    return $this->url;
+  }
+
   public function requestAnalyticsJson() {
     $this->analyticsJson = file_get_contents($this->url);
+    $this->responseSize = strlen($this->analyticsJson);
   }
 
   public function getAnalyticsJson() {
     return $this->analyticsJson;
+  }
+
+  public function getResponseSize() {
+    return $this->responseSize;
   }
 
   private function checkDates(){
