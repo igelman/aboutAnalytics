@@ -10,8 +10,18 @@ class TestDownloadAnalyticsActivityJson extends PHPUnit_Framework_TestCase {
     $this->daj = new DownloadAnalyticsActivityJson($this->startDate, $this->endDate);
 
     $this->urlsArray = [
-      "jobsearch.about.com/od/jobsearchglossary/g/coverletter.htm",
-      "jobsearch.about.com/od/coverlettersamples/a/coverlettsample.htm",
+      "compnetworking.about.com/od/routers/g/192_168_1_1_def.htm",
+      "freebies.about.com/od/freefood/tp/veterans-day-free-meals.htm",
+      "jobsearch.about.com/od/interviewquestionsanswers/a/interviewquest.htm",
+      "homecooking.about.com/library/archive/blturkey7.htm",
+      "jobsearch.about.com/od/resignationletters/a/resignationlet.htm",
+      "jobsearch.about.com/od/interviewquestionsanswers/a/top-10-interview-questions.htm",
+      "jobsearch.about.com/od/sampleresignationletters/a/resignsamples.htm",
+      "freebies.about.com/od/freefood/tp/veterans-day-free-meals.01.htm",
+      "southernfood.about.com/od/sidedishcasseroles/r/bl90911u.htm",
+      "netforbeginners.about.com/od/peersharing/a/torrent_search.htm",
+      "http://jobsearch.about.com/od/jobsearchglossary/g/coverletter.htm",
+      "http://jobsearch.about.com/od/coverlettersamples/a/coverlettsample.htm",
     ];
     $this->dpj = new DownloadAnalyticsPageviewsJson($this->urlsArray);
   }
@@ -45,17 +55,26 @@ class TestDownloadAnalyticsActivityJson extends PHPUnit_Framework_TestCase {
     echo "dpj responseSize: " . $this->dpj->getResponseSize() . PHP_EOL;
     $this->dpjAnalyticsJson = $this->dpj->getAnalyticsJson();
     $this->assertNotNull(json_decode($this->dpjAnalyticsJson));
-    print_r($this->dpjAnalyticsJson);
+//     print_r($this->dpjAnalyticsJson);
   }
 
   public function testDapjConstruct() {
     $expectedClass = "DownloadAnalyticsPageviewsJson";
     $this->assertInstanceOf($expectedClass, $this->dpj);
   }
-
-  public function testConvertArrayToString() {
-    $expectedString = 
+  
+  public function testSplitArray() {
+   	$maxLength = 5;
+   	$this->urlsArrays = $this->dpj->splitArray($maxLength);
+   	echo "splitArray: " . PHP_EOL . print_r($this->urlsArrays, TRUE) . PHP_EOL;
+	foreach ($this->urlsArrays as $urlArray) {
+		$this->assertTrue(count($urlArray) <= $maxLength);
+	}
   }
+
+//   public function testConvertArrayToString() {
+//     $expectedString = 
+//   }
 }
 
 ?>
