@@ -3,6 +3,7 @@
 
 require_once("aboutanalytics.php");
 require_once("transformjsontocsv.php");
+require_once("downloadanalyticsjson.php");
 
 
 class Autoloader {
@@ -17,8 +18,8 @@ class Autoloader {
 		}
 		include $file;
 	}
-	
-	
+
+
 }
 
 ?>
