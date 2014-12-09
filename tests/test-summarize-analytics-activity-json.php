@@ -33,7 +33,6 @@ class TestSummarizeAnalyticsActivityJson extends PHPUnit_Framework_TestCase {
     $this->saj->summarizeJsonToArray($this->activityJson_1);
     $this->saj->summarizeJsonToArray($this->activityJson_2);
     echo print_r($this->saj->getCsv(), TRUE);
-    echo print_r($this->saj->getCsv(), TRUE);
   }
 
 }

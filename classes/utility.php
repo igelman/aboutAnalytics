@@ -1,16 +1,25 @@
 <?php
 require_once("../classes/bootstrap.php");
 
-$csv = "";
+$saj = new SummarizeAnalyticsActivityJson();
 
-$startDate = "2014-11-01";
-$endDate = "2014-11-02";
+$startDate  = new DateTime("2014-11-01");
+$endDate    = new DateTime("2014-11-10");
+$endDate    = $endDate->modify("+1 day"); // because otherwise we're stopping at 00:00 on $endDate
 
-$daj = new DownloadAnalyticsActivityJson($this->startDate, $this->endDate);
-$daj->requestAnalyticsJson();
-$analyticsJson = $daj->getAnalyticsJson();
+$interval   = new DateInterval("P1D");
+$dateRange  = new DatePeriod($startDate, $interval, $endDate);
+foreach ($dateRange as $date) {
+  $begin  = $date->format("Y-m-d");
+  $end    = $date->modify("+1 day")->format("Y-m-d");
+  $daj = new DownloadAnalyticsActivityJson($begin, $end);
+  $daj->requestAnalyticsJson();
+  $analyticsJson = $daj->getAnalyticsJson();
+  $saj->summarizeJsonToArray($analyticsJson);
+}
 
-$saj = new SummarizeAnalyticsActivityJson($analyticsJson);
+
 $activityArray = $saj->getArray();
+print_r($activityArray);
 
 ?>
