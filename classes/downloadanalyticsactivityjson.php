@@ -1,6 +1,6 @@
 <?php
 
-class DownloadAnalyticsJson {
+class DownloadAnalyticsActivityJson {
   public function __construct($startDate, $endDate) {
     $this->startDate = $startDate;
     $this->endDate = $endDate;
