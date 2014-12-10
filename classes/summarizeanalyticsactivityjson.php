@@ -55,6 +55,54 @@ class SummarizeAnalyticsActivityJson {
     $this->convertArrayToCsv();
     return $this->csv;
   }
-
 }
+
+class SummarizeAnalyticsPageviewsJson extends SummarizeAnalyticsActivityJson {
+	
+	public function __construct() {
+		$this->pageviews = [];
+	}
+	
+	public function summarizeJsonToArray($json) {
+    	$pagesArray = json_decode($json);
+	    foreach($pagesArray as $page) {
+	      $url = $page->_id->url;
+	      $pvs = (integer) $page->pvs;
+	      if (!array_key_exists ( $url , $this->pageviews )) {
+	        $this->pageviews[$url] = $pvs;
+	      }
+	    }
+//	    echo "pageviews: " . print_r($this->pageviews, TRUE) . PHP_EOL;
+	}
+	
+	public function getArray() {
+		return $this->pageviews;
+	}
+	
+	public function getCsv() {
+		$this->convertArrayToCsv();
+		return $this->csv;
+	}
+
+	
+	public function convertArrayToCsv() {
+		$this->csv = "";
+		foreach ($this->pageviews as $url=>$pvs) {
+			$this->csv .= "$url, $pvs\n";
+		}
+	}
+}
+
+/*
+
+[
+{"_id":
+	{"url":"southernfood.about.com/od/sidedishcasseroles/r/bl90911u.htm"},
+	"pvs":27649,
+	"pvsUS":19299
+}
+]
+*/
+
+
 ?>

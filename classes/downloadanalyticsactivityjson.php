@@ -54,30 +54,18 @@ instead of using a instance property.
 class DownloadAnalyticsPageviewsJson extends DownloadAnalyticsActivityJson {
   public function __construct($urlsArray) {
     $this->urlsArray = $urlsArray;
-/*
+
     $this->urls = "";
     foreach ($urlsArray as $url) {
       $this->urls .= "\"$url\",";
     }
     $this->urls = rtrim($this->urls, ","); // strip that trailing comma
     $this->apiUrl = 'http://api.dss.about.com:3000/webservers/v1/url_daily/aggregate?pipeline=[{%22$match%22:{%22on%22:{%22$regex%22:%22^2014-10%22},%22url%22:{%22$in%22:[' . $this->urls . ']}}},{%22$group%22:%20{%22_id%22:%20{%22url%22:%20%22$url%22},%20%22pvs%22:%20{%22$sum%22:%20%22$pvs.total%22},%20%22pvsUS%22:%20{%22$sum%22:%20%22$pvs.US%22}}}]';
-*/
+
   }
   
-  public function splitArray($maxArrayLength) {
-  	$this->maxArrayLength = $maxArrayLength;
-  	$preserve_keys = false;
-  	$this->urlsArrays = array_chunk($this->urlsArray , $this->maxArrayLength, $preserve_keys);
-  	return $this->urlsArrays;
-  }
-  
-/*
-	Refactor the parent class's method 
-	to use $apiUrl parameter instead of property.
-	Then remove this function from the subclass.
-*/
-  public function requestAnalyticsJson($apiUrl) {
-    $this->analyticsJson = file_get_contents($apiUrl);
+  public function requestAnalyticsJson() {
+    $this->analyticsJson = file_get_contents($this->apiUrl);
     $this->responseSize = strlen($this->analyticsJson); 
   }
   

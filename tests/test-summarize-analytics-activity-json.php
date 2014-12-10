@@ -9,6 +9,12 @@ class TestSummarizeAnalyticsActivityJson extends PHPUnit_Framework_TestCase {
     $this->activityJson_2 = file_get_contents("documents_activities_20141102_20141103.json");
     $this->saj = new SummarizeAnalyticsActivityJson();
     // $this->saj = new SummarizeAnalyticsActivityJson($activityJson);
+    
+    $this->pageviewsJson = file_get_contents("documents_pageviews.json");
+    $this->pageviewsJson_1 = file_get_contents("documents_pageviews_1.json");
+    $this->pageviewsJson_2 = file_get_contents("documents_pageviews_2.json");
+
+    $this->spj = new SummarizeAnalyticsPageviewsJson();
   }
 
   public function testConstruct() {
@@ -21,6 +27,10 @@ class TestSummarizeAnalyticsActivityJson extends PHPUnit_Framework_TestCase {
     $array = $this->saj->getArray();
     $this->assertInternalType("array", $array);
     //echo print_r($array, TRUE);
+    
+    $this->spj->summarizeJsonToArray($this->pageviewsJson);
+    $array = $this->spj->getArray();
+    $this->assertInternalType("array", $array);
   }
 
   // public function testGetCsv() {
@@ -32,7 +42,11 @@ class TestSummarizeAnalyticsActivityJson extends PHPUnit_Framework_TestCase {
   public function testCombineMultipleJsonFiles() {
     $this->saj->summarizeJsonToArray($this->activityJson_1);
     $this->saj->summarizeJsonToArray($this->activityJson_2);
-    echo print_r($this->saj->getCsv(), TRUE);
+//    echo print_r($this->saj->getCsv(), TRUE);
+
+	$this->spj->summarizeJsonToArray($this->pageviewsJson_1);
+	$this->spj->summarizeJsonToArray($this->pageviewsJson_2);
+	echo print_r($this->spj->getCsv(), TRUE);
   }
 
 }

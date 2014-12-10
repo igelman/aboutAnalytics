@@ -3,13 +3,7 @@ require_once("../classes/bootstrap.php");
 
 class TestDownloadAnalyticsActivityJson extends PHPUnit_Framework_TestCase {
 
-  public function setUp() {
-    $this->startDate = "2014-11-01";
-    $this->endDate = "2014-11-02";
-    $this->earlyEndDate = "2013-01-01";
-    $this->daj = new DownloadAnalyticsActivityJson($this->startDate, $this->endDate);
-
-    $this->urlsArray = [
+    private $urlsArray = [
       "compnetworking.about.com/od/routers/g/192_168_1_1_def.htm",
       "freebies.about.com/od/freefood/tp/veterans-day-free-meals.htm",
       "jobsearch.about.com/od/interviewquestionsanswers/a/interviewquest.htm",
@@ -23,6 +17,17 @@ class TestDownloadAnalyticsActivityJson extends PHPUnit_Framework_TestCase {
       "http://jobsearch.about.com/od/jobsearchglossary/g/coverletter.htm",
       "http://jobsearch.about.com/od/coverlettersamples/a/coverlettsample.htm",
     ];
+
+
+    private $expectedApiUrl = 'http://api.dss.about.com:3000/webservers/v1/url_daily/aggregate?pipeline=[{%22$match%22:{%22on%22:{%22$regex%22:%22^2014-10%22},%22url%22:{%22$in%22:["compnetworking.about.com/od/routers/g/192_168_1_1_def.htm","freebies.about.com/od/freefood/tp/veterans-day-free-meals.htm","jobsearch.about.com/od/interviewquestionsanswers/a/interviewquest.htm","homecooking.about.com/library/archive/blturkey7.htm","jobsearch.about.com/od/resignationletters/a/resignationlet.htm","jobsearch.about.com/od/interviewquestionsanswers/a/top-10-interview-questions.htm","jobsearch.about.com/od/sampleresignationletters/a/resignsamples.htm","freebies.about.com/od/freefood/tp/veterans-day-free-meals.01.htm","southernfood.about.com/od/sidedishcasseroles/r/bl90911u.htm","netforbeginners.about.com/od/peersharing/a/torrent_search.htm","http://jobsearch.about.com/od/jobsearchglossary/g/coverletter.htm","http://jobsearch.about.com/od/coverlettersamples/a/coverlettsample.htm"]}}},{%22$group%22:%20{%22_id%22:%20{%22url%22:%20%22$url%22},%20%22pvs%22:%20{%22$sum%22:%20%22$pvs.total%22},%20%22pvsUS%22:%20{%22$sum%22:%20%22$pvs.US%22}}}]';
+
+
+  public function setUp() {
+    $this->startDate = "2014-11-01";
+    $this->endDate = "2014-11-02";
+    $this->earlyEndDate = "2013-01-01";
+    $this->daj = new DownloadAnalyticsActivityJson($this->startDate, $this->endDate);
+
     $this->dpj = new DownloadAnalyticsPageviewsJson($this->urlsArray);
   }
 
@@ -51,12 +56,11 @@ class TestDownloadAnalyticsActivityJson extends PHPUnit_Framework_TestCase {
     $this->analyticsJson = $this->daj->getAnalyticsJson();
     $this->assertNotNull(json_decode($this->analyticsJson));
 
-	$apiUrl = 'http://api.dss.about.com:3000/webservers/v1/url_daily/aggregate?pipeline=[{%22$match%22:{%22on%22:{%22$regex%22:%22^2014-10%22},%22url%22:{%22$in%22:["freebies.about.com/od/freefood/tp/veterans-day-free-meals.htm","jobsearch.about.com/od/interviewquestionsanswers/a/interviewquest.htm","homecooking.about.com/library/archive/blturkey7.htm"]}}},{%22$group%22:%20{%22_id%22:%20{%22url%22:%20%22$url%22},%20%22pvs%22:%20{%22$sum%22:%20%22$pvs.total%22},%20%22pvsUS%22:%20{%22$sum%22:%20%22$pvs.US%22}}}]';	
-    $this->dpj->requestAnalyticsJson($apiUrl);
+    $this->dpj->requestAnalyticsJson();
     echo "dpj responseSize: " . $this->dpj->getResponseSize() . PHP_EOL;
     $this->dpjAnalyticsJson = $this->dpj->getAnalyticsJson();
     $this->assertNotNull(json_decode($this->dpjAnalyticsJson));
-//     print_r($this->dpjAnalyticsJson);
+    print_r($this->dpjAnalyticsJson);
   }
 
   public function testDapjConstruct() {
@@ -64,6 +68,7 @@ class TestDownloadAnalyticsActivityJson extends PHPUnit_Framework_TestCase {
     $this->assertInstanceOf($expectedClass, $this->dpj);
   }
   
+/*
   public function testSplitArray() {
    	$maxLength = 5;
    	$this->urlsArrays = $this->dpj->splitArray($maxLength);
@@ -72,17 +77,11 @@ class TestDownloadAnalyticsActivityJson extends PHPUnit_Framework_TestCase {
 		$this->assertTrue(count($urlsArray) <= $maxLength);
 	}
   }
+*/
   
   public function testComposeApiUrl() {
 	$urlsArray = $this->urlsArray;
-	//echo "apiUrl: " . $this->dpj->composeApiUrl($urlsArray) . PHP_EOL;
-  }
-  
-  public function testTheWholeThing() {
-	  $urlsArrays = $this->dpj->splitArray(5);
-	  foreach ($urlsArrays as $urlsArray) {
-		  $this->dpj->requestAnalyticsJson($this->dpj->composeApiUrl($urlsArray));
-	  }
+	$this->assertEquals($this->expectedApiUrl, $this->dpj->composeApiUrl($urlsArray));
   }
 
 //   public function testConvertArrayToString() {
