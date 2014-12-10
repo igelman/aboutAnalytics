@@ -51,7 +51,8 @@ class TestDownloadAnalyticsActivityJson extends PHPUnit_Framework_TestCase {
     $this->analyticsJson = $this->daj->getAnalyticsJson();
     $this->assertNotNull(json_decode($this->analyticsJson));
 
-    $this->dpj->requestAnalyticsJson();
+	$apiUrl = 'http://api.dss.about.com:3000/webservers/v1/url_daily/aggregate?pipeline=[{%22$match%22:{%22on%22:{%22$regex%22:%22^2014-10%22},%22url%22:{%22$in%22:["freebies.about.com/od/freefood/tp/veterans-day-free-meals.htm","jobsearch.about.com/od/interviewquestionsanswers/a/interviewquest.htm","homecooking.about.com/library/archive/blturkey7.htm"]}}},{%22$group%22:%20{%22_id%22:%20{%22url%22:%20%22$url%22},%20%22pvs%22:%20{%22$sum%22:%20%22$pvs.total%22},%20%22pvsUS%22:%20{%22$sum%22:%20%22$pvs.US%22}}}]';	
+    $this->dpj->requestAnalyticsJson($apiUrl);
     echo "dpj responseSize: " . $this->dpj->getResponseSize() . PHP_EOL;
     $this->dpjAnalyticsJson = $this->dpj->getAnalyticsJson();
     $this->assertNotNull(json_decode($this->dpjAnalyticsJson));
@@ -67,9 +68,21 @@ class TestDownloadAnalyticsActivityJson extends PHPUnit_Framework_TestCase {
    	$maxLength = 5;
    	$this->urlsArrays = $this->dpj->splitArray($maxLength);
    	echo "splitArray: " . PHP_EOL . print_r($this->urlsArrays, TRUE) . PHP_EOL;
-	foreach ($this->urlsArrays as $urlArray) {
-		$this->assertTrue(count($urlArray) <= $maxLength);
+	foreach ($this->urlsArrays as $urlsArray) {
+		$this->assertTrue(count($urlsArray) <= $maxLength);
 	}
+  }
+  
+  public function testComposeApiUrl() {
+	$urlsArray = $this->urlsArray;
+	//echo "apiUrl: " . $this->dpj->composeApiUrl($urlsArray) . PHP_EOL;
+  }
+  
+  public function testTheWholeThing() {
+	  $urlsArrays = $this->dpj->splitArray(5);
+	  foreach ($urlsArrays as $urlsArray) {
+		  $this->dpj->requestAnalyticsJson($this->dpj->composeApiUrl($urlsArray));
+	  }
   }
 
 //   public function testConvertArrayToString() {
