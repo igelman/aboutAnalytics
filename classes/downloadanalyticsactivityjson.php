@@ -69,6 +69,7 @@ class DownloadAnalyticsPageviewsJson extends DownloadAnalyticsActivityJson {
     $this->responseSize = strlen($this->analyticsJson); 
   }
   
+/*
   public function composeApiUrl($urlsArray) {
 	$urls = "";
 	foreach ($urlsArray as $url) {
@@ -78,6 +79,7 @@ class DownloadAnalyticsPageviewsJson extends DownloadAnalyticsActivityJson {
 	
 	return 'http://api.dss.about.com:3000/webservers/v1/url_daily/aggregate?pipeline=[{%22$match%22:{%22on%22:{%22$regex%22:%22^2014-10%22},%22url%22:{%22$in%22:[' . $urls . ']}}},{%22$group%22:%20{%22_id%22:%20{%22url%22:%20%22$url%22},%20%22pvs%22:%20{%22$sum%22:%20%22$pvs.total%22},%20%22pvsUS%22:%20{%22$sum%22:%20%22$pvs.US%22}}}]';
   }
+*/
 }
 
 /*
@@ -103,4 +105,3 @@ pvsUS: 365222
 */
 
 ?>
-//http://api.dss.about.com:3000/webservers/v1/url_daily/aggregate?pipeline=[{'$match':{'on':{'$regex':'^2014-10'},'url':{'$in':["jobsearch.about.com/od/jobsearchglossary/g/coverletter.htm","jobsearch.about.com/od/coverlettersamples/a/coverlettsample.htm"]}}},{"$group": {"_id": {"url": "$url"}, "pvs": {"$sum": "$pvs.total"}, "pvsUS": {"$sum": "$pvs.US"}}}]

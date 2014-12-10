@@ -51,10 +51,12 @@ class TestDownloadAnalyticsActivityJson extends PHPUnit_Framework_TestCase {
   }
 
   public function testGetAnalyticsJson() {
+/*
     $this->daj->requestAnalyticsJson();
     echo "daj responseSize: " . $this->daj->getResponseSize() . PHP_EOL;
     $this->analyticsJson = $this->daj->getAnalyticsJson();
     $this->assertNotNull(json_decode($this->analyticsJson));
+*/
 
     $this->dpj->requestAnalyticsJson();
     echo "dpj responseSize: " . $this->dpj->getResponseSize() . PHP_EOL;
@@ -66,6 +68,8 @@ class TestDownloadAnalyticsActivityJson extends PHPUnit_Framework_TestCase {
   public function testDapjConstruct() {
     $expectedClass = "DownloadAnalyticsPageviewsJson";
     $this->assertInstanceOf($expectedClass, $this->dpj);
+    $this->assertEquals($this->expectedApiUrl, $this->dpj->getUrl());
+    echo "testDapjConstruct apiUrl: " . $this->dpj->getUrl() . PHP_EOL;
   }
   
 /*
@@ -79,10 +83,12 @@ class TestDownloadAnalyticsActivityJson extends PHPUnit_Framework_TestCase {
   }
 */
   
+/*
   public function testComposeApiUrl() {
 	$urlsArray = $this->urlsArray;
 	$this->assertEquals($this->expectedApiUrl, $this->dpj->composeApiUrl($urlsArray));
   }
+*/
 
 //   public function testConvertArrayToString() {
 //     $expectedString = 
