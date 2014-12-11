@@ -1,0 +1,183 @@
+
+----------
+ urlsArray: 
+Array
+(
+    [0] => compnetworking.about.com/od/routers/g/192_168_1_1_def.htm
+
+    [1] => freebies.about.com/od/freefood/tp/veterans-day-free-meals.htm
+
+    [2] => jobsearch.about.com/od/interviewquestionsanswers/a/interviewquest.htm
+
+    [3] => homecooking.about.com/library/archive/blturkey7.htm
+
+    [4] => jobsearch.about.com/od/resignationletters/a/resignationlet.htm
+
+    [5] => jobsearch.about.com/od/interviewquestionsanswers/a/top-10-interview-questions.htm
+
+    [6] => jobsearch.about.com/od/sampleresignationletters/a/resignsamples.htm
+
+    [7] => freebies.about.com/od/freefood/tp/veterans-day-free-meals.01.htm
+
+    [8] => southernfood.about.com/od/sidedishcasseroles/r/bl90911u.htm
+
+    [9] => netforbeginners.about.com/od/peersharing/a/torrent_search.htm
+
+    [10] => http://jobsearch.about.com/od/jobsearchglossary/g/coverletter.htm
+
+    [11] => http://jobsearch.about.com/od/coverlettersamples/a/coverlettsample.htm
+
+    [12] => 4wheeldrive.about.com/cs/accessories/l/blaccstyle.htm
+
+    [13] => 4wheeldrive.about.com/cs/coverslids/l/aa060501b.htm
+
+)
+
+----------
+ urlsArrays: 
+Array
+(
+    [0] => Array
+        (
+            [0] => compnetworking.about.com/od/routers/g/192_168_1_1_def.htm
+
+            [1] => freebies.about.com/od/freefood/tp/veterans-day-free-meals.htm
+
+            [2] => jobsearch.about.com/od/interviewquestionsanswers/a/interviewquest.htm
+
+        )
+
+    [1] => Array
+        (
+            [0] => homecooking.about.com/library/archive/blturkey7.htm
+
+            [1] => jobsearch.about.com/od/resignationletters/a/resignationlet.htm
+
+            [2] => jobsearch.about.com/od/interviewquestionsanswers/a/top-10-interview-questions.htm
+
+        )
+
+    [2] => Array
+        (
+            [0] => jobsearch.about.com/od/sampleresignationletters/a/resignsamples.htm
+
+            [1] => freebies.about.com/od/freefood/tp/veterans-day-free-meals.01.htm
+
+            [2] => southernfood.about.com/od/sidedishcasseroles/r/bl90911u.htm
+
+        )
+
+    [3] => Array
+        (
+            [0] => netforbeginners.about.com/od/peersharing/a/torrent_search.htm
+
+            [1] => http://jobsearch.about.com/od/jobsearchglossary/g/coverletter.htm
+
+            [2] => http://jobsearch.about.com/od/coverlettersamples/a/coverlettsample.htm
+
+        )
+
+    [4] => Array
+        (
+            [0] => 4wheeldrive.about.com/cs/accessories/l/blaccstyle.htm
+
+            [1] => 4wheeldrive.about.com/cs/coverslids/l/aa060501b.htm
+
+        )
+
+)
+
+----------
+ API: 
+http://api.dss.about.com:3000/webservers/v1/url_daily/aggregate?pipeline=[{%22$match%22:{%22on%22:{%22$regex%22:%22^2014-10%22},%22url%22:{%22$in%22:["compnetworking.about.com/od/routers/g/192_168_1_1_def.htm
+","freebies.about.com/od/freefood/tp/veterans-day-free-meals.htm
+","jobsearch.about.com/od/interviewquestionsanswers/a/interviewquest.htm
+"]}}},{%22$group%22:%20{%22_id%22:%20{%22url%22:%20%22$url%22},%20%22pvs%22:%20{%22$sum%22:%20%22$pvs.total%22},%20%22pvsUS%22:%20{%22$sum%22:%20%22$pvs.US%22}}}]
+----------
+ analyticsJson: 
+[
+
+]
+
+----------
+ temp pageviewsArray: 
+Array
+(
+)
+
+----------
+ API: 
+http://api.dss.about.com:3000/webservers/v1/url_daily/aggregate?pipeline=[{%22$match%22:{%22on%22:{%22$regex%22:%22^2014-10%22},%22url%22:{%22$in%22:["homecooking.about.com/library/archive/blturkey7.htm
+","jobsearch.about.com/od/resignationletters/a/resignationlet.htm
+","jobsearch.about.com/od/interviewquestionsanswers/a/top-10-interview-questions.htm
+"]}}},{%22$group%22:%20{%22_id%22:%20{%22url%22:%20%22$url%22},%20%22pvs%22:%20{%22$sum%22:%20%22$pvs.total%22},%20%22pvsUS%22:%20{%22$sum%22:%20%22$pvs.US%22}}}]
+----------
+ analyticsJson: 
+[
+
+]
+
+----------
+ temp pageviewsArray: 
+Array
+(
+)
+
+----------
+ API: 
+http://api.dss.about.com:3000/webservers/v1/url_daily/aggregate?pipeline=[{%22$match%22:{%22on%22:{%22$regex%22:%22^2014-10%22},%22url%22:{%22$in%22:["jobsearch.about.com/od/sampleresignationletters/a/resignsamples.htm
+","freebies.about.com/od/freefood/tp/veterans-day-free-meals.01.htm
+","southernfood.about.com/od/sidedishcasseroles/r/bl90911u.htm
+"]}}},{%22$group%22:%20{%22_id%22:%20{%22url%22:%20%22$url%22},%20%22pvs%22:%20{%22$sum%22:%20%22$pvs.total%22},%20%22pvsUS%22:%20{%22$sum%22:%20%22$pvs.US%22}}}]
+----------
+ analyticsJson: 
+[
+
+]
+
+----------
+ temp pageviewsArray: 
+Array
+(
+)
+
+----------
+ API: 
+http://api.dss.about.com:3000/webservers/v1/url_daily/aggregate?pipeline=[{%22$match%22:{%22on%22:{%22$regex%22:%22^2014-10%22},%22url%22:{%22$in%22:["netforbeginners.about.com/od/peersharing/a/torrent_search.htm
+","http://jobsearch.about.com/od/jobsearchglossary/g/coverletter.htm
+","http://jobsearch.about.com/od/coverlettersamples/a/coverlettsample.htm
+"]}}},{%22$group%22:%20{%22_id%22:%20{%22url%22:%20%22$url%22},%20%22pvs%22:%20{%22$sum%22:%20%22$pvs.total%22},%20%22pvsUS%22:%20{%22$sum%22:%20%22$pvs.US%22}}}]
+----------
+ analyticsJson: 
+[
+
+]
+
+----------
+ temp pageviewsArray: 
+Array
+(
+)
+
+----------
+ API: 
+http://api.dss.about.com:3000/webservers/v1/url_daily/aggregate?pipeline=[{%22$match%22:{%22on%22:{%22$regex%22:%22^2014-10%22},%22url%22:{%22$in%22:["4wheeldrive.about.com/cs/accessories/l/blaccstyle.htm
+","4wheeldrive.about.com/cs/coverslids/l/aa060501b.htm
+"]}}},{%22$group%22:%20{%22_id%22:%20{%22url%22:%20%22$url%22},%20%22pvs%22:%20{%22$sum%22:%20%22$pvs.total%22},%20%22pvsUS%22:%20{%22$sum%22:%20%22$pvs.US%22}}}]
+----------
+ analyticsJson: 
+[
+
+]
+
+----------
+ temp pageviewsArray: 
+Array
+(
+)
+
+----------
+ pageviewsArray: 
+Array
+(
+)

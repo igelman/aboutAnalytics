@@ -68,7 +68,8 @@ class DownloadAnalyticsPageviewsJson extends DownloadAnalyticsActivityJson {
     $this->analyticsJson = file_get_contents($this->apiUrl);
     $this->responseSize = strlen($this->analyticsJson); 
   }
-  
+
+
 /*
   public function composeApiUrl($urlsArray) {
 	$urls = "";
